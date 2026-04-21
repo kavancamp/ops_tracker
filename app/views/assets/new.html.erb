@@ -1,2 +1,48 @@
-<h1>Assets#new</h1>
-<p>Find me in app/views/assets/new.html.erb</p>
+<div class="container mt-4">
+  <h1 class="mb-3">New Asset</h1>
+
+  <% if @asset.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @asset.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @asset, local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :asset_type, class: "form-label" %>
+      <%= form.text_field :asset_type, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :serial_number, class: "form-label" %>
+      <%= form.text_field :serial_number, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :status, class: "form-label" %>
+      <%= form.select :status,
+          options_for_select(Asset::VALID_STATUSES, @asset.status),
+          { prompt: "Select status" },
+          class: "form-select" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :location_id, "Location", class: "form-label" %>
+      <%= form.collection_select :location_id, @locations, :id, :name,
+          { prompt: "Select location" },
+          class: "form-select" %>
+    </div>
+
+    <%= form.submit "Create Asset", class: "btn btn-success" %>
+    <%= link_to "Cancel", assets_path, class: "btn btn-secondary ms-2" %>
+  <% end %>
+</div>

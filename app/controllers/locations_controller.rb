@@ -13,9 +13,9 @@ class LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
 
-    if @location.save 
+    if @location.save
       redirect_to @location, notice: "Location created successfully"
-    else 
+    else
       render :new, status: :unprocressable_entity
     end
   end

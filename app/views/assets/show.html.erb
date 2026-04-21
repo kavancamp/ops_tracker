@@ -1,2 +1,16 @@
-<h1>Assets#show</h1>
-<p>Find me in app/views/assets/show.html.erb</p>
+<div class="container mt-4">
+  <h1><%= @asset.name %></h1>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <p><strong>Type:</strong> <%= @asset.asset_type %></p>
+      <p><strong>Serial Number:</strong> <%= @asset.serial_number %></p>
+      <p><strong>Status:</strong> <%= @asset.status %></p>
+      <p><strong>Location:</strong> <%= @asset.location.name %></p>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <%= link_to "Back to Assets", assets_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
