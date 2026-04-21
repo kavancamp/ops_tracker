@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h1><%= @location.name %></h1>
+  <p class="text-muted"><%= @location.region %></p>
+
+  <hr>
+
+  <h3>Assets at this location</h3>
+
+  <% if @location.assets.any? %>
+    <ul class="list-group">
+      <% @location.assets.each do |asset| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>
+            <strong><%= asset.name %></strong>
+            <span class="text-muted">(<%= asset.asset_type %>)</span>
+          </span>
+          <%= link_to "View", asset_path(asset), class: "btn btn-outline-primary btn-sm" %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No assets assigned yet.</p>
+  <% end %>
+</div>
