@@ -23,6 +23,22 @@ class AssetsController < ApplicationController
     end
   end
 
+  def edit
+    @asset = Asset.find(params[:id])
+    @locations = Location.order(:name)
+  end
+
+  def update
+    @asset = Asset.find(params[:id])
+    @locations = Location.order(:name)
+
+    if @asset.update(asset_params)
+      redirect_to @asset, notice: "Asset updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def asset_params
