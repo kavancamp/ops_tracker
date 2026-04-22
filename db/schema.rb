@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_20_230659) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_22_181209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -30,6 +30,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_20_230659) do
     t.string "name"
     t.string "region"
     t.datetime "updated_at", null: false
+    t.index ["name", "region"], name: "index_locations_on_name_and_region", unique: true
   end
 
   add_foreign_key "assets", "locations"
