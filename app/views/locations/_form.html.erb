@@ -1,0 +1,24 @@
+<% if location.errors.any? %>
+  <div class="alert alert-danger">
+    <ul class="mb-0">
+      <% location.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: location, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :region, class: "form-label" %>
+    <%= form.text_field :region, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-success" %>
+  <%= link_to "Cancel", locations_path, class: "btn btn-secondary ms-2" %>
+<% end %>

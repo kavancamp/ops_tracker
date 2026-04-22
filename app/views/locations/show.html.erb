@@ -14,7 +14,10 @@
             <strong><%= asset.name %></strong>
             <span class="text-muted">(<%= asset.asset_type %>)</span>
           </span>
-          <%= link_to "View", asset_path(asset), class: "btn btn-outline-primary btn-sm" %>
+          <div class="mb-3">
+            <%= link_to "View", asset_path(asset), class: "btn btn-outline-primary btn-sm" %>
+            <%= link_to "Edit", edit_asset_path(asset), class: "btn btn-outline-secondary btn-sm" %>
+          </div>
         </li>
       <% end %>
     </ul>

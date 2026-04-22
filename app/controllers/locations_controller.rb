@@ -16,7 +16,21 @@ class LocationsController < ApplicationController
     if @location.save
       redirect_to @location, notice: "Location created successfully"
     else
-      render :new, status: :unprocressable_entity
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @location = Location.find(params[:id])
+  end
+
+  def update
+    @location = Location.find(params[:id])
+
+    if @location.update(location_params)
+      redirect_to @location, notice: "Location updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
