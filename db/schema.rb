@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_22_181209) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_23_205747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,5 +33,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_181209) do
     t.index ["name", "region"], name: "index_locations_on_name_and_region", unique: true
   end
 
+  create_table "maintenance_records", force: :cascade do |t|
+    t.bigint "asset_id", null: false
+    t.decimal "cost"
+    t.datetime "created_at", null: false
+    t.text "notes"
+    t.datetime "performed_at"
+    t.datetime "updated_at", null: false
+    t.string "vendor"
+    t.index ["asset_id"], name: "index_maintenance_records_on_asset_id"
+  end
+
   add_foreign_key "assets", "locations"
+  add_foreign_key "maintenance_records", "assets"
 end
