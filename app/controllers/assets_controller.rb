@@ -1,10 +1,17 @@
 class AssetsController < ApplicationController
   def index
-    @assets = Asset.includes(:location).order(:name)
+    @assets = Asset.includes(:location)
+      .order(:name)
+      .page(params[:page])
+      .per(10)
   end
 
   def show
     @asset = Asset.find(params[:id])
+    @maintenance_records = @asset.maintenance_records
+      .order(performed_at: :desc)
+      .page(params[:page])
+      .per(10)
   end
 
   def new
