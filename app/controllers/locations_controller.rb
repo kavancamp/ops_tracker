@@ -1,9 +1,17 @@
 class LocationsController < ApplicationController
   def index
     @locations = Location.order(:name)
+      .page(params[:page])
+      .per(20)
   end
+
   def show
     @location = Location.find(params[:id])
+
+    @assets = @location.assets
+      .order(:name)
+      .page(params[:page])
+      .per(20)
   end
 
   def new
