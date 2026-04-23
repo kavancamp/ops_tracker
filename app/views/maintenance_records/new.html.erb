@@ -1,2 +1,38 @@
-<h1>MaintenanceRecords#new</h1>
-<p>Find me in app/views/maintenance_records/new.html.erb</p>
+<div class="container mt-4">
+  <h1 class="mb-3">New Maintenance Record for <%= @asset.name %></h1>
+
+  <% if @maintenance_record.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @maintenance_record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: [@asset, @maintenance_record], local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :performed_at, class: "form-label" %>
+      <%= form.datetime_local_field :performed_at, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :vendor, class: "form-label" %>
+      <%= form.text_field :vendor, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :cost, class: "form-label" %>
+      <%= form.number_field :cost, step: 0.01, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :notes, class: "form-label" %>
+      <%= form.text_area :notes, rows: 4, class: "form-control" %>
+    </div>
+
+    <%= form.submit "Add Record", class: "btn btn-success" %>
+    <%= link_to "Cancel", asset_path(@asset), class: "btn btn-secondary ms-2" %>
+  <% end %>
+</div>
