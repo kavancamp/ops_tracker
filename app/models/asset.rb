@@ -1,5 +1,6 @@
 class Asset < ApplicationRecord
   belongs_to :location
+  has_many :maintenance_records, dependent: :destroy
 
   VALID_STATUSES = [ "active", "maintenance", "retired" ].freeze
 
