@@ -1,9 +1,25 @@
 class AssetsController < ApplicationController
   def index
     @assets = Asset.includes(:location)
+
+    if params[:status].present?
+      @assets = @assets.where(status: params[:status])
+    end
+
+    if params[:location_id].present?
+      @assets = @assets.where(location_id: params[:location_id])
+    end
+
+    if params[:query].present?
+      @assets = @assets.where("name ILIKE ?", "%#{params[:query]}%")
+    end
+
+    @assets = @assets
       .order(:name)
       .page(params[:page])
-      .per(10)
+      .per(20)
+
+    @locations = Location.order(:name)
   end
 
   def show
