@@ -8,5 +8,6 @@ class DashboardController < ApplicationController
     @recent_maintenance_records = MaintenanceRecord.includes(asset: :location)
       .order(performed_at: :desc)
       .limit(5)
+    @attention_assets = Asset.where(status: "maintenance").limit(5)
   end
 end

@@ -8,4 +8,8 @@ class Asset < ApplicationRecord
   validates :asset_type, presence: true
   validates :serial_number, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: { in: VALID_STATUSES }
+
+  def needs_attention?
+    status == "maintenance"
+  end
 end
