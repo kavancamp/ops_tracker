@@ -1,8 +1,15 @@
 class LocationsController < ApplicationController
   def index
-    @locations = Location.order(:name)
-      .page(params[:page])
-      .per(20)
+    @locations = Location.all
+
+    if params[:query].present?
+      @locations = @locations.where(
+        "name ILIKE :query OR region ILIKE :query",
+        query: "%#{params[:query]}%"
+      )
+    end
+    @locations = @locations.order(:name)
+      .page(params[:page]).per(20)
   end
 
   def show
