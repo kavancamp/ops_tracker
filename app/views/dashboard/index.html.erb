@@ -59,6 +59,9 @@
       <div class="list-group-item d-flex justify-content-between align-items-center">
         <div>
           <strong><%= asset.name %></strong>
+            <% if asset.needs_attention? %>
+              <span class="badge bg-danger">Needs Attention</span>
+            <% end %>
           <div class="text-muted">
             <%= asset.location.name %> • <%= asset.asset_type %>
           </div>

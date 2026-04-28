@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_23_205747) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_28_180156) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_205747) do
     t.string "status"
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_assets_on_location_id"
+  end
+
+  create_table "inventory_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "location_id", null: false
+    t.string "name"
+    t.integer "quantity"
+    t.integer "reorder_amount"
+    t.datetime "updated_at", null: false
+    t.string "vendor"
+    t.index ["location_id"], name: "index_inventory_items_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -44,6 +55,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_205747) do
     t.index ["asset_id"], name: "index_maintenance_records_on_asset_id"
   end
 
+  create_table "purchase_orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "inventory_item_id", null: false
+    t.bigint "location_id", null: false
+    t.integer "quantity"
+    t.string "status"
+    t.datetime "updated_at", null: false
+    t.string "vendor"
+    t.index ["inventory_item_id"], name: "index_purchase_orders_on_inventory_item_id"
+    t.index ["location_id"], name: "index_purchase_orders_on_location_id"
+  end
+
   add_foreign_key "assets", "locations"
+  add_foreign_key "inventory_items", "locations"
   add_foreign_key "maintenance_records", "assets"
+  add_foreign_key "purchase_orders", "inventory_items"
+  add_foreign_key "purchase_orders", "locations"
 end
