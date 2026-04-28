@@ -9,5 +9,13 @@ class DashboardController < ApplicationController
       .order(performed_at: :desc)
       .limit(5)
     @attention_assets = Asset.where(status: "maintenance").limit(5)
+
+    @low_inventory_items = InventoryItem.includes(:location)
+      .where("quanity <= reorder_threshold")
+      .limit(5)
+    @pending_purchase_orders = PurchaseOrder.includes(:inventory_item, :location)
+      .where(status: "pending")
+      .order(created_at: :desc)
+      .limit(5)
   end
 end
